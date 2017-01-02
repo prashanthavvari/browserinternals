@@ -1,0 +1,223 @@
+<html>
+ <head>
+   <title>Browser Internals</title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
+   <script>
+      $(document).ready(function()
+	   {
+	   var count=0;
+	       $('#drag').click(function()
+		   {
+		   if(count%2==0)
+		   {
+		     $('nav').toggle("slide");
+			 $(this).css("margin-left","201px");
+			 }
+			 else
+			 {
+			 $('nav').css("display","none");
+			 $(this).css("margin-left","0px");
+			 }
+			 count++;
+		   });
+	       $("a").click(function()
+			{
+			  var $r=$(this).attr('href');
+			  $('body').animate({scrollTop:$($r).offset().top},1000);
+			});
+	   });
+   </script>
+   <style>
+    header{
+	color:white;
+	background-color:black;
+	margin:0;
+	width:100%;
+	height:50px;
+	padding:10px;
+	text-align:center;
+	}
+	nav{
+	position:fixed;
+	cursor:pointer;
+	argin-top:50%;
+	float:left;;
+	width:200px;
+	color:black;
+	text-align:center;
+	background-color:#CCCCCC;
+	display:none;
+	}
+	footer{
+	float:bottom;
+	height:20px;
+	color:white;
+	background-color:black;
+	margin-top:10%;	
+	padding:10px;
+	text-align:center;
+	}
+	body{
+	margin:0;
+	}
+	section{
+	margin-top:7%;
+	margin-left:20%;
+	display:inline-block;
+	font-family:"Comic Sans MS";
+	box-shadow: 1px 1px 1px 1px #CCCCCC;
+	color:black;
+	width:40%;
+	padding:1%;
+	line-height:35px;
+	}
+	nav a{
+	color:black;
+	text-decoration:none;
+	}
+	#drag{
+	cursor:pointer;
+	mrgin-top:50%;
+	color:black;
+	position:fixed;
+	width:2%;
+	}
+	section img{
+	width:500px;
+	height:300px;
+	}
+	
+	</style>
+   </head>
+   <body>
+       <header><h2>Browser Internals</h2> </header>
+	   <nav>
+	   <br>
+          <a href="#why" value="#why">Need to know?</a><br><br>
+		  <a href="#components" value="#components">Components</a><br><br>
+		  <a href="#browser-work" value="#browser-work">Browser working</a><br><br>
+		  <a href="#ui" value="#ui">User Interface</a><br><br>
+		  <a href="#render-engines" value="#render-engines">Render Engines</a><br><br>
+		  <a href="#html-parsing" value="#html-parsing">HTML Parsing</a><br><br>
+		  <a href="#css-parsing" value="#css-parsing">CSS Parsing</a><br><br>
+		  <a href="#rendertree" value="#rendertree">Render Tree</a><br><br>
+		  </nav>
+		<div id="drag">></div>
+	   <section id="why">
+	        <h1>Why we need to know about browser internals?</h1>
+			<p> As you are a web desiginer/developer you need to have a perfect idea about what your are going to do while building the web designs.<br> It is important for us to know how does a browser work exactly.<br>
+			You will be learning about what is the best way to implement a web design if you have the fundamentals of how a web browser work.<br>
+			You will be having a clear cut idea in the developement of complex web sites which takes time to load. <br>
+			For example if the images are not so important to be displayed on that particular page then we can assign a link for that seperately and then provide that link in our page<br>
+			so that it wont take much time to load.. Try it yourself you can see the difference.
+			</p>
+	   </section>
+	   <section id="components">
+	   <h1>Components of Browser</h1>
+	    take a look at the structure of the browser first <img src="http://www.pro-tekconsulting.com/blog/wp-content/uploads/2016/01/major_components_of_the_browser.png">diagram</img>
+	   there are 7 major components in the browser structure<br>
+	   <ul>
+       <li> ui which provides the user interface</li>
+        <li>browser engine - which acts as a medium between ui and render engines</li>
+        <li>network which has functions like dns lookup http calls etc</li>
+        <li>javascript interpretor interprets / converts /executes the java script codes<li>
+        <li>ui backend which is responsible for the construction of ui elements like check boxes etc</li>
+        <li>data persistance i.e., data will be stored locally in the form of cookies or cache etc</li>
+		</ul>
+	   </section>
+	   <section id="browser-work">
+	   <h1>Browser working</h1>
+	     Before going to the components of the browser, let us understand <b><em>How a browser work ?</em></b><br>
+		 At first when we enter url in the url bar,we can enter either the ip address or can even enter the domain name. <br>
+		 Then the network layer comes into the picture where DNS lookup will takes place, where it searches for the domain in the cache and then it searches in the different servers.<br> 
+		 Once the exact address is mapped then ARP will comes into the picture which is an Address Resolution Protocol and after matching up with the address the data retrieving will take place.<br>
+		 Then parsers will parse the documents and results will be displayed to us. 
+	   </section>
+	   <section id="ui">
+	   <h2>User Interface</h2>
+	   A user interface does not have any specific rules. But it has become practise to have some basic ui features like 
+	   <br>URL/Search bar<br>Search button/Icon<br>Forward and Backward navigation buttons<br>Bookmarking options<br>Settings<br>
+	   </section>
+	   <section id="render-engines">
+	     <h1>Rendering Engines</h1>
+	      Before going to rendering engines, we need to know about what is rendering first?<br>
+		  Rendering a page means turning the html document which consists of tags and all into the system understandable language(DOM Trees,CCSOM etc) and then again to user understandable pages(web pages).<br>
+		  We have three main kind of redering engines which are being used by major browsers like<br>
+		  Internet Explorer use Trident <br>
+		  Mozilla uses Gecko<br>
+		  Safari and Chrome uses Wekit<br><br>
+		  <h2>The Flow</h2>
+		  The flow in the rendering engine, starting from converting the html documents into OS understanable things and then to the user understandable things, consists of 4 main stages
+		  <img src="http://www.phpied.com/files/reflow/render.png"/><br>
+		  First is HTML parsing ,CSS parsing and construction of DOM tree and CSSOM tree<br>
+		  Seond one is constructing render tree<br>
+		  Third goes for layout process<br>
+		  Fourth step is painting the UI<br>
+		  First we will be talking about html prsing and dom tree construction<br>
+	   </section>
+	   <section id="html-parsing">
+	      <h1>HTML Parsing</h1>
+		  Before going to html parsing first understand what is parsing?<br>
+		  Parsing is converting documents into a tree like structures and then applying rules to them.<br>
+		  There are two main steps involved in parsing they are <br><em>1)Lexical analysis<br>2)syntax analysis</em><br>
+		  Where lexical analysis is converting the documents into words and symantic analysis is applying semantic rules to them.<br>
+		  Coming to html parsing normally parsers uses context free grammar but here html does not use any context free grammar<br>
+		  Context free grammar is the grammar which has set of rules for constructing the grammar<br>
+		  The syntaxes for the HTML are defined in HTML DTD by W3C (World wide web consortium).The out put of HTML parsing is the DOM tree.<Br>
+		  <h2>DOM Tree Construction</h2>
+		  A DOM tree is a Document Object Model tree where it has the nodes of HTML elements<br>
+		  It does not follow any top down or bottom up approach for parsing and has two steps.<br> 
+		  They are Tokenization and Tree Construction<br>
+		  Tokenization is the process of forming tokens from the document where it uses an algorithm to do it called as Tokenzation Algorithm<br>
+		  Like it will be having certain stages as initial state, tag open state, tag name state and data state<br>
+		  Initial state occurs before < appears for the first time <br>when < apperas, it goes to <b>tag open state</b> <br>Then when a character appear, goes to <b>tag name state </b><br> after > it again goes to <b>data state </b> and the same process will be followed for the colsing tags also<br>
+		  In the same way we have tree construction<br>
+		  Where intially it will be before HTML state and when HTML first appears it will be in after HTML and before Head state<br>
+		  and when a body state appears it will to before body and then t in body and after body is closed it goes to after body and at last closing the HTML tag,it goes to after after body state<br>
+		  <img src="https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/image022.gif"/>
+		  <h4>DOM Tree example</h4>
+		  <img src="http://javascript.info/files/tutorial/browser/dom/simpledom2.png"/>
+	   </section>
+	   <section id="css-parsing">
+	      <h1> CSS Parsing</h1>
+		  CSS will be parsed from top to bottom for example take a look at the diagram  
+		  <img src="http://taligarsiel.com/Projects/image023.png"/><br>
+		  We have specificity calculations involved in css parsing.<br>
+		  Why we are using specificty calculations is the to know how a browser paints or layouts our style.<br>
+		  The specificty calculations help us in layouting and painting the trees<br>
+		  The specificty for different kind of selectors goes in this way.<br>
+		  The specificity for the global selectors is consider as 0.<br>
+		  The specificity for <b>the inline style elements/declarations</b> will be given more priority followed by<br>
+		  The specificty for <b>id selectors '#' </b>followed by<br>
+		  The specificty for <b>class selectors </b>followed by.<br>
+		  The specificty for <b>elements</b>.<br>
+		  <h4>when this specificty exactly helps?</h4>If we are using the same style for different kind of elements like using different styles are to imported on a specific element then the one which has the highest specificty will be given priority<br>
+		  <em>for example :</em><br>
+		 <b>1)</b> inline styling<br>&lt;h1 style="height:70px;"&gt;this is some text&lt;/h1&gt;<br>
+		 <b>2)</b>Id selector<br> #modify{<br>
+		  height:60px;<Br>
+		  }<BR>
+		  &lt;h1 id="modify"&gt;this is some text&lt;/h1&gt;<br>
+		  <b>3)</b>class selector<Br>
+		  .modify{<br>
+		  height:50px;<br>}<br>
+		  &lt;h1 class="modify"&gt;this is some text &lt;/h1&gt;<br>
+		  <b>4)</b>element<br>
+		  h1{<br>
+		  height:40px;<br>
+		  }<br>
+		  &lt;h1&gt;this is some text &lt;/h1&gt;<br>
+		  The order of prefernce as we are discussed will start from the inline declaration. As it has the highest order priority, the changes/styles present in it will be applied<br>
+		  Next priority will be given to <b>2</b> if at all <b>1</b> is not present and it continues.<br>
+		  Let us consider other example where the specificity is equal<br>
+		  <b>1)</b><br> #modify {<Br>height:50px;<br>}<br>&lt;h1 id="modify"&gt;some text &lt;/h1&gt;<br>
+		  <b>2)</b><br> #modify{<br>height:20px;<br>}<br>&lt;h1 id="modify"&gt;some text &lt;/h1&gt;<br>
+		  In the above case the later one will have effect on the element because those two styles are having same priority order so he one which last appears will effect the element<br>
+	   </section>
+	   <section id="rendertree"> 9941877266 prakash
+	   <h1>Render Tree</h1>
+	   Render tree is the combination of both CSSOM and DOM tree<br>
+	   The construction of the tree will be right from the top most visible element i.e., body because head and html are not visible to the user<br>
+	   From that position if any style node matching for DOM tree in the CSS tree then it will be applied.<br>
+	   </section>
+	   <footer> <code>&copy;</code>prashanth avvari </footer>
